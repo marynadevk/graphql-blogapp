@@ -1,6 +1,5 @@
 import { IPostArgs } from './IPostArgs';
 
-export interface IPostUpdateArgs {
+export interface IPostUpdateArgs extends IPostArgs {
   postId: string;
-  post: IPostArgs;
 }

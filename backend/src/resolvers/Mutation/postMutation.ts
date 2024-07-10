@@ -35,7 +35,7 @@ export const postResolvers = {
   },
 
   postUpdate: async (_: any, { postId, post }: IPostUpdateArgs, { prisma, userInfo }: IContext): Promise<IPostPayload> => {
-    const { title, content } = post.post;
+    const { title, content } = post;
 
     if (!userInfo) {
       return {
