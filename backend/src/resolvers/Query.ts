@@ -1,3 +1,9 @@
+import { IContext } from '../interfaces/IContext';
+
 export const Query = {
-    hello: () => 'Hello World!'
-  }
+    posts: (_parent: any, _args: any, { prisma }: IContext) => {
+      return prisma.post.findMany({
+        orderBy: [{ createdAt: 'desc' }]
+      });
+    },
+  };
