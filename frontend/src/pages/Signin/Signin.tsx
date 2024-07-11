@@ -1,16 +1,46 @@
-// import React, { useState, useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
+import Button from '@restart/ui/Button';
+import { gql, useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
-import { Form } from "react-bootstrap";
-import Button from "@restart/ui/Button";
+const SIGNIN = gql`
+  mutation Signup($email: String!, $password: String!) {
+    signIn(credentials: { email: $email, password: $password }) {
+      userErrors { message }, token, userId
+    }
+  }
+`;
 
 export const Signin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [signin, { data }] = useMutation(SIGNIN);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState(null);
+  const [error, setError] = useState(null);
 
-  const handleClick = () => {};
+  useEffect(() => {
+    if (data) {
+      if (data.signIn.userErrors.length) {
+        setError(data.signIn.userErrors[0].message);
+      }
+      if (data.signIn.token) {
+        localStorage.setItem('token', data.signIn.token);
+      }
+      if (data.signIn.userId) {
+        setUserId(data.signIn.userId);
+      }
+    }
+  }, [data]);
 
-  // const [error, setError] = useState(null);
+
+  const handleClick = () => {
+    signin({ variables: { email, password } });
+    if (userId) {
+      navigate(`/profile/${userId}`);
+    }
+  };
 
   return (
     <div>
@@ -19,7 +49,7 @@ export const Signin = () => {
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="text"
-            placeholder=""
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -28,14 +58,14 @@ export const Signin = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder=""
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
 
-        {/* {error && <p>{error}</p>} */}
-        <Button onClick={handleClick}>Signin</Button>
+        {error && <p>{error}</p>}
+        <Button onClick={handleClick}>Sign in</Button>
       </Form>
     </div>
   );

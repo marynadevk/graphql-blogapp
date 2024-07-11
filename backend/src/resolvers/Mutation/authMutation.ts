@@ -16,15 +16,15 @@ export const authResolvers = {
     const isValidPassword = validator.isLength(password, {min: 5, max: 15});
 
     if (!validator.isEmail(email)) {
-      return {userErrors: [{message: 'Email is invalid'}], token: null};
+      return {userErrors: [{message: 'Email is invalid'}], token: null, userId: null};
     }
 
     if(!isValidPassword) {
-      return {userErrors: [{message: 'Password must be between 5 and 15 characters'}], token: null};
+      return {userErrors: [{message: 'Password must be between 5 and 15 characters'}], token: null, userId: null};
     }
 
     if(!name || !bio) {
-      return {userErrors: [{message: 'Name and bio are required'}], token: null};
+      return {userErrors: [{message: 'Name and bio are required'}], token: null, userId: null};
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -34,7 +34,7 @@ export const authResolvers = {
 
     const token = JWT.sign({ userId: user.id }, process.env.JWT_SECRET as string, { expiresIn: '24h' })
 
-    return {userErrors: [], token};
+    return {userErrors: [], token, userId: user.id};
   },
 
   signIn: async (
@@ -46,17 +46,17 @@ export const authResolvers = {
     const user = await prisma.user.findUnique({ where: { email }});
 
     if(!user) {
-      return {userErrors: [{ message: 'Invalid credentials' }], token: null};
+      return {userErrors: [{ message: 'Invalid credentials' }], token: null, userId: null};
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if(!isMatch) {
-      return {userErrors: [{ message: 'Invalid credentials' }], token: null};
+      return {userErrors: [{ message: 'Invalid credentials' }], token: null, userId: null};
     }
 
     const token = JWT.sign({ userId: user.id }, process.env.JWT_SECRET as string, { expiresIn: '24h' });
 
-    return {userErrors: [], token};
+    return {userErrors: [], token, userId: user.id};
   }
 };

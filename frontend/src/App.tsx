@@ -1,6 +1,5 @@
-// import React from 'react';
 import { Routes, Route } from 'react-router';
-import './App.css';
+import './styles/App.css';
 import { Posts } from './pages/Posts/Posts';
 import { Signup } from './pages/Signup/Signup';
 import { Signin } from './pages/Signin/Signin';

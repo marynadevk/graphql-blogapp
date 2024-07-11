@@ -3,6 +3,7 @@
   margin-bottom: 1rem;
   padding: 1rem;
   position: relative;
+  border-radius: 10px;
 }
 
 .Post__publish {

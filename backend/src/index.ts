@@ -16,13 +16,10 @@ const server = new ApolloServer({
     Post,
     User
   },
-  context: ({ req }): IContext => {
-    const userInfo = getUserFromToken(req.headers.authorization || '');
-    return {
-      prisma,
-      userInfo
-    }
-  }
+  context: async ({ req }: any): Promise<IContext> => {
+    const userInfo = await getUserFromToken(req.headers.authorization);
+    return { prisma, userInfo };
+  },
 });
 
 server.listen().then(({url}) => {
