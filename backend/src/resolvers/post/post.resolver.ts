@@ -1,4 +1,4 @@
-import { userLoader } from '../loaders/userLoader';
+import { userLoader } from '../../loaders/userLoader';
 
 export const Post = {
   user: (parent: { authorId: number }, __: any) => {

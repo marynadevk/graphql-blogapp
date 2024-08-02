@@ -1,5 +1,4 @@
-import { IContext } from '../interfaces/IContext';
-import { IProfileParent } from '../interfaces/IProfileParent';
+import { IContext, IProfileParent } from '../../interfaces';
 
 export const Profile = {
   user: (parent: IProfileParent, __: any, { prisma }: IContext) => {

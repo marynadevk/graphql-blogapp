@@ -1,4 +1,4 @@
-import { IContext } from '../interfaces/IContext';
+import { IContext } from '../../interfaces';
 
 export const User = {
   posts: (parent: { id: number }, __: any, { userInfo, prisma }: IContext) => {

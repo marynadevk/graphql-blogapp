@@ -1,4 +1,4 @@
-import { IContext } from '../interfaces/IContext';
+import { IContext } from '../../interfaces';
 
 export const Query = {
   me: (_: any, __: any, { prisma, userInfo }: IContext) => {

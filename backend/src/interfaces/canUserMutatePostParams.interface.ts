@@ -1,4 +1,4 @@
-import { IContext } from './IContext';
+import { IContext } from './context.interface';
 
 export interface ICanUserMutatePostParams {
   userId: number;

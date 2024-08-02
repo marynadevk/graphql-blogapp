@@ -1,8 +1,9 @@
 import JWT from 'jsonwebtoken';
+import { config } from '../config';
 
 export const getUserFromToken = (token: string) => {
   try {
-    return JWT.verify(token, process.env.JWT_SECRET as string) as {
+    return JWT.verify(token, config.jwt.secret as string) as {
       userId: number;
     };
   } catch (error) {
