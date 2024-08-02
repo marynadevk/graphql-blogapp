@@ -18,19 +18,19 @@ To set up the project, follow these steps:
 1. **Clone the repository:**
 
 ```sh
-git clone <https://github.com/marynadevk/graphql-blogapp>
+git clone <https://github.com/marynadevk/graphql-blogapp.git>
 cd blogapp
 ```
 2. **Install dependencies for both frontend and backend:**
 # Install backend dependencies
 ```sh
 cd backend
-npm install
+npm сі
 ```
 # Install frontend dependencies
 ```sh
 cd ../frontend
-npm install
+npm сі
 ```
 3. **Create a .env file in the backend directory based on the provided .env.example**
 
